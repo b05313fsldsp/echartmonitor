@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+//dc- Hook
+import React, { useState, useEffect } from "react";
 import asyncComponent from './AsyncComponent'
 // import { pieOption, barOption, lineOption, scatterOption, mapOption, radarOption, candlestickOption } from './optionConfig/options'
 const PieReact = asyncComponent(() => import(/* webpackChunkName: "Pie" */'./EchartsDemo/PieReact'))  //饼图组件
@@ -9,9 +10,13 @@ const MapReact = asyncComponent(() => import(/* webpackChunkName: "Map" */'./Ech
 const RadarReact = asyncComponent(() => import(/* webpackChunkName: "Radar" */'./EchartsDemo/RadarReact')) //雷达图组件
 const CandlestickReact = asyncComponent(() => import(/* webpackChunkName: "Candlestick" */'./EchartsDemo/CandlestickReact')) //k线图组件
 
+
 //dc-
 //折线图数据
 export const lineOption = {
+
+
+
   title: {
     text: '堆叠区域图'
   },
@@ -52,22 +57,22 @@ export const lineOption = {
   ],
   series : [
     {
-      name:'a',
+      name:'c',
       type:'line',
       stack: 'total',
       areaStyle: {normal: {}},
       // data:[120, 132, 101, 134, 90, 230, 210] // [{ name: "Female", type: "line" }]
-      data:[{ name: "Tqs", type: "line" }]
+      data:[{ name: "tqs", type: "line" }]
     },
-/*
+
     {
       name:'a',
       type:'line',
       stack: 'total',
       areaStyle: {normal: {}},
-      data:[120, 132, 101, 134, 90, 230, 210]
+      data:[120, 132, 101, 134, 90, 230, 210, 132, 101, 134, 90, 132, 101, 134, 90, 132, 101, 134, 90]
     },
-
+/*
     {
       name:'b',
       type:'line',
@@ -85,23 +90,73 @@ export const lineOption = {
   ]
 };
 
+async function fetchTqsJSON() {
+  const response = await fetch("http://localhost:8081/api/tqs");
+  const tqs = await response.json();
+  return tqs;
+}
 
-class App extends Component {
-  render() {
+const App = () => {
+
+ //dc-
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [api, setApi] = useState([]);
+
+
+  useEffect(() => {
+  //fetch("http://10.3.1.194:8081/api/tqs")
+  //.then(res => res.json())
+  fetchTqsJSON().then(
+  (response ) => {
+  setIsLoaded(true);
+  setApi(response );
+  },
+  // Note: it's important to handle errors here
+  // instead of a catch() block so that we don't swallow
+  // exceptions from actual bugs in components.
+  (error) => {
+  setIsLoaded(true);
+  setError(error);
+  }
+  )
+  }, [])
+  //dc--
+
     return (
-      <div>
-        
+
+    <div className="app">
+         <ul>
+          {api.map(item => (
+          <li key={item.id}>
+          {item.SN}
+
+          <p/>
+          {item.SPN1761}
+         </li>
+         ))}
+         </ul>
+         <ul>
+          {api.map(item => (
+          <li key={item.id}>
+          {item.SN}
+          <p/>
+          {item.SPN1761}
+         </li>
+         ))}
+         </ul>
+
+  
         <h2>TQS Data Dynamic Monitoring</h2>
         <LineReact option={lineOption} />
         <hr/>
-
         <h2>TQS Data Dynamic Monitoring - 2</h2>
         <LineReact option={lineOption} />
         <hr/>
-  
-      </div>
+      
+    </div>
     );
-  }
-}
+
+};
 
 export default App;
