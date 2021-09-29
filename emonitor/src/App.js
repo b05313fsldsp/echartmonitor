@@ -1,6 +1,7 @@
 //dc- Hook
 import React, { useState, useEffect } from "react";
 import asyncComponent from './AsyncComponent'
+//dc-
 // import { pieOption, barOption, lineOption, scatterOption, mapOption, radarOption, candlestickOption } from './optionConfig/options'
 const PieReact = asyncComponent(() => import(/* webpackChunkName: "Pie" */'./EchartsDemo/PieReact'))  //饼图组件
 const BarReact = asyncComponent(() => import(/* webpackChunkName: "Bar" */'./EchartsDemo/BarReact')) //柱状图组件
@@ -15,7 +16,9 @@ const CandlestickReact = asyncComponent(() => import(/* webpackChunkName: "Candl
 //折线图数据
 export const lineOption = {
 
-
+//dc-
+//  const response = await fetch("http://localhost:8081/api/tqs");
+//  const tqs = await response.json();
 
   title: {
     text: '堆叠区域图'
@@ -62,7 +65,7 @@ export const lineOption = {
       stack: 'total',
       areaStyle: {normal: {}},
       // data:[120, 132, 101, 134, 90, 230, 210] // [{ name: "Female", type: "line" }]
-      data:[{ name: "tqs", type: "line" }]
+      data: getData // [{item.SPN1761}]  //fetchTqsJSON
     },
 
     {
@@ -89,6 +92,13 @@ export const lineOption = {
 */
   ]
 };
+
+
+async function getData() {
+  const response = await fetch("http://localhost:8081/api/tqs");
+  const tqsData = await response.text();
+  return tqsData;
+}
 
 async function fetchTqsJSON() {
   const response = await fetch("http://localhost:8081/api/tqs");
