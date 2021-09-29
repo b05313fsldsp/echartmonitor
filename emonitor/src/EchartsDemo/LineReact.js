@@ -28,7 +28,7 @@ export default class LineReact extends React.Component {
   initPy() {
     const { option={} } = this.props //外部传入的data数据
     let yyChart = echarts.init(this.ID) //初始化echarts
-    let tqsData = [];
+    // let tqsData = [];
     
     //设置options
     yyChart.setOption(option)

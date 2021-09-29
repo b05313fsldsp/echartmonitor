@@ -67,7 +67,7 @@ export const lineOption = {
       // data:[120, 132, 101, 134, 90, 230, 210] // [{ name: "Female", type: "line" }]
       data: getData // [{item.SPN1761}]  //fetchTqsJSON
     },
-
+/*
     {
       name:'a',
       type:'line',
@@ -75,7 +75,7 @@ export const lineOption = {
       areaStyle: {normal: {}},
       data:[120, 132, 101, 134, 90, 230, 210, 132, 101, 134, 90, 132, 101, 134, 90, 132, 101, 134, 90]
     },
-/*
+
     {
       name:'b',
       type:'line',
@@ -97,12 +97,15 @@ export const lineOption = {
 async function getData() {
   const response = await fetch("http://localhost:8081/api/tqs");
   const tqsData = await response.text();
+  console.log(`current tqsData is ${tqsData}`);
   return tqsData;
 }
 
 async function fetchTqsJSON() {
   const response = await fetch("http://localhost:8081/api/tqs");
   const tqs = await response.json();
+  // console.log(`current tqs is ${tqs}`);
+
   return tqs;
 }
 
@@ -131,6 +134,15 @@ const App = () => {
   }
   )
   }, [])
+
+  useEffect(() => {
+  getData();}
+  )
+
+  // dc-qq
+  // console.log(`current tqs is ${api.map(1)}`);
+
+
   //dc--
 
     return (
