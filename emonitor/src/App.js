@@ -3,13 +3,13 @@ import React, { useState, useEffect } from "react";
 import asyncComponent from './AsyncComponent'
 //dc-
 // import { pieOption, barOption, lineOption, scatterOption, mapOption, radarOption, candlestickOption } from './optionConfig/options'
-const PieReact = asyncComponent(() => import(/* webpackChunkName: "Pie" */'./EchartsDemo/PieReact'))  //饼图组件
-const BarReact = asyncComponent(() => import(/* webpackChunkName: "Bar" */'./EchartsDemo/BarReact')) //柱状图组件
+// const PieReact = asyncComponent(() => import(/* webpackChunkName: "Pie" */'./EchartsDemo/PieReact'))  //饼图组件
+// const BarReact = asyncComponent(() => import(/* webpackChunkName: "Bar" */'./EchartsDemo/BarReact')) //柱状图组件
 const LineReact = asyncComponent(() => import(/* webpackChunkName: "Line" */'./EchartsDemo/LineReact'))  //折线图组件
-const ScatterReact = asyncComponent(() => import(/* webpackChunkName: "Scatter" */'./EchartsDemo/ScatterReact'))  //散点图组件
-const MapReact = asyncComponent(() => import(/* webpackChunkName: "Map" */'./EchartsDemo/MapReact'))  //地图组件
-const RadarReact = asyncComponent(() => import(/* webpackChunkName: "Radar" */'./EchartsDemo/RadarReact')) //雷达图组件
-const CandlestickReact = asyncComponent(() => import(/* webpackChunkName: "Candlestick" */'./EchartsDemo/CandlestickReact')) //k线图组件
+// const ScatterReact = asyncComponent(() => import(/* webpackChunkName: "Scatter" */'./EchartsDemo/ScatterReact'))  //散点图组件
+// const MapReact = asyncComponent(() => import(/* webpackChunkName: "Map" */'./EchartsDemo/MapReact'))  //地图组件
+// const RadarReact = asyncComponent(() => import(/* webpackChunkName: "Radar" */'./EchartsDemo/RadarReact')) //雷达图组件
+// const CandlestickReact = asyncComponent(() => import(/* webpackChunkName: "Candlestick" */'./EchartsDemo/CandlestickReact')) //k线图组件
 
 
 //dc-
@@ -149,24 +149,51 @@ console.log(prop2b); // 'baz'
 
 async function getData() {
   const response = await fetch("http://localhost:8081/api/tqs");
+  // dc- deconstucture assignment-
+  // const { title, SN, CANID, SPN1761, TTIMESTAMP, createdAt } = response;
+  
   const tqsData = await response.text();
+// const { title, SN, CANID, SPN1761, TTIMESTAMP, createdAt } = tqsData;
 
   /*
-    const tqsData = {
+    const tqsData2 = {
      prop1: 'title',
-     prop1: 'SN',
-     prop1: 'CANID',
-     prop1: 'SPN1761',
-     prop1: 'TTIMESTAMP',
-     prop1: 'createdAt'
+     prop2: 'SN',
+     prop3: 'CANID',
+     prop4: 'SPN1761',
+     prop5: 'TTIMESTAMP',
+     prop6: 'createdAt'
      
     };
   */
-    // const { title, SN, CANID, SPN1761, TTIMESTAMP, createdAt } = tqsData;
+  // dc- data parsing
+  /*
+  var arr = str.split(",").map(item => item.trim());
 
-    console.log(`current tqs is ${tqsData}`);  // 'SPN1761'
+  <script language="javascript">
+    var h = [[1, 2, 3, 4], [11, 12, 13, 14], [21, 22, 23, 24]];
+    var hs = "";
+    for(i = 0; i < h.length; i++)
+    {
+     hs += h[i][1] + " ";
+    }
+    alert("*" + hs + "!");
+  </script>
+
+
+  */
+// const [TTIMESTAMP, setTTIMESTAMP] = useState(42);
+  const { TTIMESTAMP } = tqsData;
+
+
+
+  // let toget = tqsData.split(',').slice(1, 2).concat(tqsData.split(',').slice(3));
+   
+  console.log(tqsData); // 'SPN1761'
+  console.log(TTIMESTAMP); // 'SPN1761'
+
   
-    return {SPN1761};
+    // return {SPN1761};
 }
 
 async function fetchTqsJSON() {
