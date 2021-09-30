@@ -93,12 +93,80 @@ export const lineOption = {
   ]
 };
 
+/* 
+
+//
+  var schema = mongoose.Schema(
+    {
+      title: String,
+      SN: String,
+      CANID: String,
+      SPN1761: Number,
+      TTIMESTAMP: Number,
+      createdAt:String
+
+    }
+  );
+
+
+//dc- 
+
+const tqsData = {
+ prop1: 'title',
+ prop1: 'SN',
+ prop1: 'CANID',
+ prop1: 'SPN1761',
+ prop1: 'TTIMESTAMP',
+ prop1: 'createdAt'
+
+};
+
+const { title, SN, CANID, SPN1761, TTIMESTAMP, createdAt } = tqsData;
+
+console.log(SPN1761);  // 'SPN1761'
+
+
+
+
+
+//javascript deconstruct object-
+
+const objA = {
+ prop1: 'foo',
+ prop2: {
+   prop2a: 'bar',
+   prop2b: 'baz',
+ },
+};
+
+// Deconstruct nested props
+const { prop1, prop2: { prop2a, prop2b } } = objA;
+
+console.log(prop1);  // 'foo'
+console.log(prop2a); // 'bar'
+console.log(prop2b); // 'baz'
+*/
 
 async function getData() {
   const response = await fetch("http://localhost:8081/api/tqs");
   const tqsData = await response.text();
-  console.log(`current tqsData is ${tqsData}`);
-  return tqsData;
+
+  /*
+    const tqsData = {
+     prop1: 'title',
+     prop1: 'SN',
+     prop1: 'CANID',
+     prop1: 'SPN1761',
+     prop1: 'TTIMESTAMP',
+     prop1: 'createdAt'
+     
+    };
+  */
+    // const { title, SN, CANID, SPN1761, TTIMESTAMP, createdAt } = tqsData;
+
+    console.log(`current tqs is ${tqsData}`);  // 'SPN1761'
+  
+    return {SPN1761};
 }
 
 async function fetchTqsJSON() {
